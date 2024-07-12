@@ -1,0 +1,13 @@
+[build-system]
+requires = ["scikit-build-core>=0.3.3", "pybind11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "mujoco_multiview"
+version = "0.0.1"
+dependencies = ["mujoco"]
+requires-python = ">=3.9"
+authors = [{ name = "Louis Gevers", email = "louis.gevers@epfl.ch" }]
+description = "Multi-window passive viewer for MuJoCo with user study rendering tools."
+readme = "README.md"
+license = { file = "LICENSE" }
