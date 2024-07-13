@@ -40,7 +40,8 @@ add_subdirectory(${GLFW_PATH})
 find_package(pybind11 CONFIG REQUIRED)
 
 #  5. Create the pybind module with dependencies
-pybind11_add_module(_bindings src/bindings.cpp src/viewer.cpp)
+file(GLOB BINDING_SOURCES ${CMAKE_SOURCE_DIR}/src/*cpp)
+pybind11_add_module(_bindings ${BINDING_SOURCES})
 target_link_libraries(_bindings INTERFACE mujoco PRIVATE glfw)
 target_include_directories(_bindings PRIVATE ${CMAKE_SOURCE_DIR}/src ${GLFW_PATH}/include ${MUJOCO_INCLUDE})
 
