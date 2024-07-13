@@ -9,11 +9,11 @@ namespace mujoco_multiview
     class MujocoWindow
     {
     public:
-        explicit MujocoWindow(mjvOption *options, mjvScene *scene);
+        explicit MujocoWindow(int cameraId, mjvOption *options, mjvScene *scene);
         ~MujocoWindow();
         void load(mjModel *model, mjData *data);
         void render();
-        bool shouldClose();
+        bool shouldClose() const;
 
     private:
         // FIXME: get rid of raw pointers

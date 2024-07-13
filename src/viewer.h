@@ -5,7 +5,7 @@
 
 namespace mujoco_multiview
 {
-    void launch_passive(mjModel* model, mjData* data);
+    void launch_passive(mjModel *model, mjData *data, int instances);
 }
 
 #endif // VIEWER_H

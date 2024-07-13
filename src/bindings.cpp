@@ -8,11 +8,11 @@ namespace py = pybind11;
 namespace mujoco_multiview::python
 {
 
-    void launch_passive_wrapper(py::object model_wrapper, py::object data_wrapper)
+    void launch_passive_wrapper(py::object model_wrapper, py::object data_wrapper, int instances)
     {
         mjModel *model = model_wrapper.cast<mujoco::python::MjModelWrapper &>().get();
         mjData *data = data_wrapper.cast<mujoco::python::MjDataWrapper &>().get();
-        mujoco_multiview::launch_passive(model, data);
+        mujoco_multiview::launch_passive(model, data, instances);
     }
 
     PYBIND11_MODULE(_bindings, m)

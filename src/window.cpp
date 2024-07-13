@@ -1,19 +1,28 @@
 #include "window.h"
 
+#include <sstream>
+
 namespace mujoco_multiview
 {
-    MujocoWindow::MujocoWindow(mjvOption *options, mjvScene *scene)
+    MujocoWindow::MujocoWindow(int cameraId, mjvOption *options, mjvScene *scene)
     {
         mOptions = options;
         mScene = scene;
-        mWindow = glfwCreateWindow(640, 480, "MuJoCo MultiView", NULL, NULL);
+
+        std::stringstream title;
+        title << "MuJoCo MultiView - Viewer " << (cameraId + 1);
+
+        mWindow = glfwCreateWindow(640, 480, title.str().c_str(), NULL, NULL);
         if (!mWindow)
         {
             glfwTerminate();
             mju_error("Could not create window.");
         }
 
-        mjv_defaultCamera(&mCamera);
+        // Use fixed camera from model
+        mCamera.type = mjCAMERA_FIXED;
+        mCamera.fixedcamid = cameraId;
+
         mjr_defaultContext(&mContext);
 
         glfwMakeContextCurrent(mWindow);
@@ -47,7 +56,7 @@ namespace mujoco_multiview
         glfwSwapBuffers(mWindow);
     };
 
-    bool MujocoWindow::shouldClose()
+    bool MujocoWindow::shouldClose() const
     {
         return glfwWindowShouldClose(mWindow);
     };
