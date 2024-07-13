@@ -7,7 +7,7 @@
 
 namespace mujoco_multiview
 {
-    void launch_passive(mjModel *model, mjData *data, int instances)
+    void launch_viewers(mjModel *model, mjData *data, int instances)
     {
         mjvOption opt;
         mjvScene scn;
