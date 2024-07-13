@@ -10,6 +10,9 @@ namespace mujoco_multiview
         mjv_defaultOption(&mOption);
         mjv_defaultScene(&mScene);
 
+        // Visible flex edges
+        mOption.flags[mjVIS_FLEXEDGE] = 1;
+
         // Allocate scene resources
         mjv_makeScene(model, &mScene, 2000);
 
