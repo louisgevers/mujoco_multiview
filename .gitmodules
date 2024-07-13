@@ -1,3 +1,9 @@
 [submodule "glfw"]
 	path = glfw
 	url = git@github.com:glfw/glfw.git
+[submodule "mujoco"]
+	path = mujoco
+	url = git@github.com:google-deepmind/mujoco.git
+[submodule "abseil"]
+	path = abseil
+	url = git@github.com:abseil/abseil-cpp.git
