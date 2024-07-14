@@ -75,4 +75,16 @@ namespace mujoco_multiview
         // TODO locking
         mRunning = false;
     }
+    void Application::setRenderVisible(int id, bool visible)
+    {
+        mWindows.at(id)->setVisible(visible);
+    }
+    void Application::setLabel(int id, std::optional<std::string> &label)
+    {
+        mWindows.at(id)->setLabel(label);
+    }
+    void Application::setLabelColor(int id, float r, float g, float b)
+    {
+        mWindows.at(id)->setLabelColor(r, g, b);
+    }
 } // namespace mujoco_multiview

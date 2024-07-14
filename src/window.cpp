@@ -2,6 +2,10 @@
 
 #include <sstream>
 
+constexpr int LABEL_WIDTH = 640;
+constexpr int LABEL_HEIGHT = 128;
+constexpr int LABEL_OFFSET = 24;
+
 namespace mujoco_multiview
 {
     MujocoWindow::MujocoWindow(int cameraId, mjvOption *options, mjvScene *scene)
@@ -50,8 +54,28 @@ namespace mujoco_multiview
         mjrRect viewport = {0, 0, 0, 0};
         glfwGetFramebufferSize(mWindow, &viewport.width, &viewport.height);
 
-        mjv_updateScene(mModel, mData, mOptions, NULL, &mCamera, mjCAT_ALL, mScene);
-        mjr_render(viewport, mScene, &mContext);
+        if (mVisible)
+        {
+            mjv_updateScene(mModel, mData, mOptions, NULL, &mCamera, mjCAT_ALL, mScene);
+            mjr_render(viewport, mScene, &mContext);
+        }
+        else
+        {
+            // Black screen
+            mjr_rectangle(viewport, 0, 0, 0, 1);
+        }
+
+        // Optionally add a label on the top of the screen
+        if (mLabel)
+        {
+            // Top of screen with offset
+            const int bottom = viewport.height - LABEL_HEIGHT - LABEL_OFFSET;
+            // Center of the screen
+            const int left = (viewport.width / 2) - (LABEL_WIDTH / 2);
+
+            mjrRect label_viewport{left, bottom, LABEL_WIDTH, LABEL_HEIGHT};
+            mjr_label(label_viewport, mjFONT_BIG, mLabel->c_str(), 0, 0, 0, 0.6, mLabelRGB[0], mLabelRGB[1], mLabelRGB[2], &mContext);
+        }
 
         glfwSwapBuffers(mWindow);
     };

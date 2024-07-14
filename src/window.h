@@ -14,6 +14,14 @@ namespace mujoco_multiview
         void load(mjModel *model, mjData *data);
         void render();
         bool shouldClose() const;
+        void setVisible(bool visible) { mVisible = visible; };
+        void setLabel(std::optional<std::string> &label) { mLabel = label; };
+        void setLabelColor(float r, float g, float b)
+        {
+            mLabelRGB[0] = r;
+            mLabelRGB[1] = g;
+            mLabelRGB[2] = b;
+        };
 
     private:
         // FIXME: get rid of raw pointers
@@ -26,6 +34,9 @@ namespace mujoco_multiview
         GLFWwindow *mWindow;
         mjrContext mContext;
         mjvCamera mCamera;
+        std::optional<std::string> mLabel;
+        float mLabelRGB[3] = {1., 1., 1.};
+        bool mVisible = true;
     };
 
 }

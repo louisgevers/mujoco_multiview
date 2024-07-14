@@ -5,6 +5,7 @@
 
 #include <mujoco/mujoco.h>
 #include <vector>
+#include <optional>
 
 namespace mujoco_multiview
 {
@@ -19,6 +20,11 @@ namespace mujoco_multiview
 
         void sync();
         void close();
+
+        // Window rendering hooks
+        void setRenderVisible(int id, bool visible);
+        void setLabel(int id, std::optional<std::string> &label);
+        void setLabelColor(int id, float r, float g, float b);
 
     private:
         mjvOption mOption;
