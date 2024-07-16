@@ -6,6 +6,7 @@
 #include <mujoco/mujoco.h>
 #include <vector>
 #include <optional>
+#include <memory>
 
 namespace mujoco_multiview
 {

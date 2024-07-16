@@ -4,6 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <mujoco/mujoco.h>
 
+#include <optional>
+
 namespace mujoco_multiview
 {
     class MujocoWindow

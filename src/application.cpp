@@ -1,6 +1,7 @@
 #include "application.h"
 
 #include <GLFW/glfw3.h>
+#include <algorithm>
 
 namespace mujoco_multiview
 {
