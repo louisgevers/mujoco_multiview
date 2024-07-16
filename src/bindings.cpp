@@ -12,17 +12,16 @@ namespace mujoco_multiview::python
     class ApplicationWrapper
     {
     public:
-        ApplicationWrapper(py::object model_wrapper, py::object data_wrapper, int instances)
+        ApplicationWrapper(uintptr_t model_ptr, uintptr_t data_ptr, int instances)
             : mApplication(
-                  std::make_unique<Application>(model_wrapper.cast<mujoco::python::MjModelWrapper &>().get(),
-                                                data_wrapper.cast<mujoco::python::MjDataWrapper &>().get(),
+                  std::make_unique<Application>(reinterpret_cast<mjModel *>(model_ptr),
+                                                reinterpret_cast<mjData *>(data_ptr),
                                                 instances)) {}
 
         void renderLoop()
         {
             if (mApplication)
             {
-
                 mApplication->renderLoop();
                 mApplication.reset();
             }
@@ -87,7 +86,7 @@ namespace mujoco_multiview::python
         m.doc() = "Python bindings test.";
 
         py::class_<ApplicationWrapper>(m, "Application")
-            .def(py::init([](py::object m, py::object d, int instances)
+            .def(py::init([](uintptr_t m, uintptr_t d, int instances)
                           { return std::make_unique<ApplicationWrapper>(m, d, instances); }))
             .def("render_loop", &ApplicationWrapper::renderLoop, py::call_guard<py::gil_scoped_release>())
             .def("is_running", &ApplicationWrapper::isRunning, py::call_guard<py::gil_scoped_release>())
