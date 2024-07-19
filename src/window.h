@@ -5,6 +5,7 @@
 #include <mujoco/mujoco.h>
 
 #include <optional>
+#include <string>
 
 namespace mujoco_multiview
 {
