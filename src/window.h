@@ -11,7 +11,7 @@ namespace mujoco_multiview
     class MujocoWindow
     {
     public:
-        explicit MujocoWindow(int cameraId, mjvOption *options, mjvScene *scene);
+        explicit MujocoWindow(int cameraId, mjvOption *options, mjvScene *scene, GLFWmonitor *monitor, bool fullscreen);
         ~MujocoWindow();
         void load(mjModel *model, mjData *data);
         void render();

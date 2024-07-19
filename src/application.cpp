@@ -23,12 +23,18 @@ namespace mujoco_multiview
             mju_error("Could not initialize glfw.");
         }
 
+        // Get monitors
+        int count;
+        GLFWmonitor **monitors = glfwGetMonitors(&count);
+        const bool fullscreen = count > 1 ? true : false;
+
         // Create windows
         mWindows.reserve(instances);
         // Give incremental camera IDs, these have to be defined in the model's XML
         for (int cameraId = 0; cameraId < instances; cameraId++)
         {
-            mWindows.push_back(std::make_unique<MujocoWindow>(cameraId, &mOption, &mScene));
+            const int monitorIndex = instances <= count ? count - instances + cameraId : 0;
+            mWindows.push_back(std::make_unique<MujocoWindow>(cameraId, &mOption, &mScene, monitors[monitorIndex], fullscreen));
         }
 
         // Load the window context with given model and data

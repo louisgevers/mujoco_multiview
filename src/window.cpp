@@ -8,7 +8,7 @@ constexpr int LABEL_OFFSET = 24;
 
 namespace mujoco_multiview
 {
-    MujocoWindow::MujocoWindow(int cameraId, mjvOption *options, mjvScene *scene)
+    MujocoWindow::MujocoWindow(int cameraId, mjvOption *options, mjvScene *scene, GLFWmonitor *monitor, bool fullscreen)
     {
         mOptions = options;
         mScene = scene;
@@ -16,7 +16,9 @@ namespace mujoco_multiview
         std::stringstream title;
         title << "MuJoCo MultiView - Viewer " << (cameraId + 1);
 
-        mWindow = glfwCreateWindow(640, 480, title.str().c_str(), NULL, NULL);
+        const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+        GLFWmonitor *targetMonitor = fullscreen ? monitor : NULL;
+        mWindow = glfwCreateWindow(mode->width, mode->height, title.str().c_str(), targetMonitor, NULL);
         if (!mWindow)
         {
             glfwTerminate();
