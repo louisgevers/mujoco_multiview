@@ -18,11 +18,18 @@ namespace mujoco_multiview
 
         const GLFWvidmode *mode = glfwGetVideoMode(monitor);
         GLFWmonitor *targetMonitor = fullscreen ? monitor : NULL;
-        mWindow = glfwCreateWindow(mode->width, mode->height, title.str().c_str(), targetMonitor, NULL);
+        mWindow = glfwCreateWindow(mode->width, mode->height, title.str().c_str(), NULL, NULL);
         if (!mWindow)
         {
             glfwTerminate();
             mju_error("Could not create window.");
+        }
+
+        if (targetMonitor != NULL)
+        {
+            int xpos, ypos;
+            glfwGetMonitorPos(monitor, &xpos, &ypos);
+            glfwSetWindowPos(mWindow, xpos, ypos);
         }
 
         // Use fixed camera from model
